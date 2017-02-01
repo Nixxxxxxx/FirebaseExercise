@@ -11,4 +11,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="german.teach.learn.zero.learnandteachgerman.ExerciseSelection">
 
+    <TextView
+        android:text="Exercise selection screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="114dp"
+        android:layout_marginStart="114dp"
+        android:layout_marginTop="194dp"
+        android:id="@+id/textView"/>
 </RelativeLayout>
