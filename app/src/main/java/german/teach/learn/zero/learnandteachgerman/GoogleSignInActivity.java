@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -19,12 +20,26 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import german.teach.learn.zero.learnandteachgerman.models.User;
 
 public class GoogleSignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
     SignInButton mSignInButton;
     Button mSignOutButton;
+    Button mContinue;
+
     TextView mStatusTextView;
     GoogleApiClient mGoogleApiClient;
+
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
     private static final String TAG = "SingInActivity";
     private static final int RC_SIGN_IN = 10001;
@@ -34,6 +49,9 @@ public class GoogleSignInActivity extends AppCompatActivity implements GoogleApi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_sign_in);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -46,7 +64,10 @@ public class GoogleSignInActivity extends AppCompatActivity implements GoogleApi
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         mStatusTextView = (TextView) findViewById(R.id.status_textview);
-        mStatusTextView.setText("xxxxxxxx");
+
+        mContinue = (Button) findViewById(R.id.continue_button);
+        mContinue.setOnClickListener(this);
+        mContinue.setVisibility(View.GONE);
 
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
         mSignInButton.setOnClickListener(this);
@@ -56,6 +77,44 @@ public class GoogleSignInActivity extends AppCompatActivity implements GoogleApi
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Check auth on Activity start
+        if (mAuth.getCurrentUser() != null) {
+            mStatusTextView.setText(mAuth.getCurrentUser().getEmail());
+            mSignInButton.setVisibility(View.GONE);
+            mContinue.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void onAuthSuccess(FirebaseUser user) {
+        String username = usernameFromEmail(user.getEmail());
+
+        // Write new user
+        writeNewUser(user.getUid(), username, user.getEmail());
+
+        // Go to MainActivity
+        startActivity(new Intent(GoogleSignInActivity.this, ExerciseSelection.class));
+        finish();
+    }
+
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
+    }
+
+    // [START basic_write]
+    private void writeNewUser(String userId, String name, String email) {
+        User user = new User(name, email);
+
+        mDatabase.child("users").child(userId).setValue(user);
+    }
+    // [END basic_write]
 
     @Override
     public void onClick(View view) {
@@ -64,7 +123,12 @@ public class GoogleSignInActivity extends AppCompatActivity implements GoogleApi
                 signIn();
                 break;
             case R.id.sign_out_button:
+                mSignInButton.setVisibility(View.VISIBLE);
+                mContinue.setVisibility(View.GONE);
                 signOut();
+                break;
+            case R.id.continue_button:
+                onAuthSuccess(mAuth.getCurrentUser());
                 break;
         }
     }
@@ -88,8 +152,26 @@ public class GoogleSignInActivity extends AppCompatActivity implements GoogleApi
         Log.d(TAG, "handleSignInResult");
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
-            mStatusTextView.setText("Hallo " + acct.getDisplayName());
-            startActivity(new Intent(GoogleSignInActivity.this, ExerciseSelection.class));
+            mStatusTextView.setText(acct.getEmail());
+            String email = acct.getEmail();
+            String name = acct.getDisplayName();
+
+            mAuth.createUserWithEmailAndPassword(email, name)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            Log.d(TAG, "createUser:onComplete:" + task.isSuccessful());
+
+                            if (task.isSuccessful()) {
+                                onAuthSuccess(task.getResult().getUser());
+                            } else {
+                                Toast.makeText(GoogleSignInActivity.this, "User is already registered",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+            mSignInButton.setVisibility(View.GONE);
+            mContinue.setVisibility(View.VISIBLE);
         } else {
 
         }
