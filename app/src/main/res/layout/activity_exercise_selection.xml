@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_exercise_selection"
     android:layout_width="match_parent"
@@ -11,15 +12,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="german.teach.learn.zero.learnandteachgerman.ExerciseSelection">
 
-    <TextView
-        android:text="Exercise selection screen"
+    <Button
+        android:text="create exercise 1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="114dp"
-        android:layout_marginStart="114dp"
-        android:layout_marginTop="194dp"
-        android:id="@+id/textView"/>
-</RelativeLayout>
+        android:id="@+id/create_exercise_1_bt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:text="EXERCISE 1"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:id="@+id/exercise_1_bt"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:text="CREATE EXERCISE 2"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:id="@+id/create_exercise_2_bt"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/create_exercise_1_bt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:text="EXERCISE 2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/exercise_2_bt"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/exercise_1_bt"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        />
+
+</android.support.constraint.ConstraintLayout>

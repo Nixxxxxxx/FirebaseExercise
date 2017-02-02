@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LearnAndTeachGerman</string>
+    <string name="title_activity_exercise1">Exercise1Activity</string>
 </resources>
