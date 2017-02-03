@@ -17,13 +17,15 @@ import com.squareup.picasso.Picasso;
 import java.util.UUID;
 
 import german.teach.learn.zero.learnandteachgerman.R;
+import german.teach.learn.zero.learnandteachgerman.models.ExerciseLab;
+import german.teach.learn.zero.learnandteachgerman.models.ExercisePagerActivity;
 
 /**
  * Created by zero on 02.02.17.
  */
 
-public class ExerciseFragment extends Fragment implements View.OnClickListener {
-    private static final String ARG_EXERCISE_ID = "exercise_id";
+public class ExerciseOneFragment extends Fragment implements View.OnClickListener {
+    private static final String ARG_EXERCISE_ID_1 = "exercise_id1";
     private Exercise1 mExercise1;
     private TextView mWordText;
     private Button mDerButton;
@@ -34,10 +36,10 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener {
 
     private Activity mActivity;
 
-    public static ExerciseFragment newInstance(UUID crimeId) {
+    public static ExerciseOneFragment newInstance(UUID uuid) {
         Bundle args = new Bundle();
-        args.putSerializable(ARG_EXERCISE_ID, crimeId);
-        ExerciseFragment fragment = new ExerciseFragment();
+        args.putSerializable(ARG_EXERCISE_ID_1, uuid);
+        ExerciseOneFragment fragment = new ExerciseOneFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +47,7 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID crimeId = (UUID) getArguments().getSerializable(ARG_EXERCISE_ID);
+        UUID crimeId = (UUID) getArguments().getSerializable(ARG_EXERCISE_ID_1);
         mExercise1 = ExerciseLab.get(getActivity()).getExercise(crimeId);
         mArticle = mExercise1.getArticle();
     }
@@ -82,7 +84,7 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         if (((Button) view.findViewById(view.getId())).getText().equals(mArticle)) {
             Toast.makeText(getContext(), "Richtig ;)", Toast.LENGTH_SHORT).show();
-            ((ExercisePagerActivity)mActivity).actTest();
+            ((ExercisePagerActivity)mActivity).nextExercise();
         } else {
             Toast.makeText(getContext(), "Falsch :(", Toast.LENGTH_SHORT).show();
         }

@@ -1,10 +1,12 @@
-package german.teach.learn.zero.learnandteachgerman.exercises.exe1;
+package german.teach.learn.zero.learnandteachgerman.models;
 
 import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import german.teach.learn.zero.learnandteachgerman.exercises.exe1.Exercise1;
 
 /**
  * Created by zero on 02.02.17.

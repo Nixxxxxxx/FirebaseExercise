@@ -15,13 +15,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 import german.teach.learn.zero.learnandteachgerman.exercises.exe1.CreateExercise1Activity;
-import german.teach.learn.zero.learnandteachgerman.exercises.exe1.ExerciseLab;
-import german.teach.learn.zero.learnandteachgerman.exercises.exe1.ExercisePagerActivity;
+import german.teach.learn.zero.learnandteachgerman.models.ExerciseLab;
+import german.teach.learn.zero.learnandteachgerman.models.ExercisePagerActivity;
 import german.teach.learn.zero.learnandteachgerman.exercises.exe1.Exercise1;
 
 public class ExerciseSelection extends AppCompatActivity implements View.OnClickListener {
     private Button createExercise_1_Bt;
     private Button exercise_1_Bt;
+    private Button exercise_2_Bt;
     List<Exercise1> mExercise;
     List<String> mWords;
     private DatabaseReference mDatabaseReference;
@@ -37,6 +38,9 @@ public class ExerciseSelection extends AppCompatActivity implements View.OnClick
 
         exercise_1_Bt = (Button) findViewById(R.id.exercise_1_bt);
         exercise_1_Bt.setOnClickListener(this);
+
+        exercise_2_Bt = (Button) findViewById(R.id.exercise_2_bt);
+        exercise_2_Bt.setOnClickListener(this);
 
         mExercise = ExerciseLab.get(this).getExercise1s();
         mWords = ExerciseLab.get(this).getWords();
@@ -60,7 +64,6 @@ public class ExerciseSelection extends AppCompatActivity implements View.OnClick
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("TAG", "getUser:onCancelled", databaseError.toException());
-                // ...
             }
         };
 
@@ -81,13 +84,23 @@ public class ExerciseSelection extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
+        Bundle data = new Bundle();
         switch (view.getId()) {
             case R.id.create_exercise_1_bt:
                 startActivity(new Intent(ExerciseSelection.this, CreateExercise1Activity.class));
                 break;
             case R.id.exercise_1_bt:
+                data.putSerializable("Aufgabe", "Aufgabe1");
                 Intent intent = ExercisePagerActivity.newIntent(ExerciseSelection.this, mExercise.get(0).getId());
+                intent.putExtras(data);
                 startActivity(intent);
+                break;
+            case  R.id.exercise_2_bt:
+                Log.d("HHHHH","WWWWWWWW");
+                data.putSerializable("Aufgabe", "Aufgabe2");
+                Intent intent1 = ExercisePagerActivity.newIntent(ExerciseSelection.this, mExercise.get(0).getId());
+                intent1.putExtras(data);
+                startActivity(intent1);
                 break;
         }
     }

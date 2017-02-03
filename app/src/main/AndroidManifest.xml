@@ -19,7 +19,9 @@
         </activity>
         <activity android:name=".exercises.exe1.CreateExercise1Activity">
         </activity>
-        <activity android:name=".exercises.exe1.ExercisePagerActivity"/>
+        <activity android:name=".models.ExercisePagerActivity"/>
+        <activity android:name=".exercises.exe2.ExerciseTwoFragment">
+        </activity>
     </application>
 
 </manifest>
