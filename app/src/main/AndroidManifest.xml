@@ -17,14 +17,9 @@
         </activity>
         <activity android:name=".ExerciseSelection">
         </activity>
-        <activity
-            android:name=".exercises.Exercise1Activity"
-            android:label="@string/title_activity_exercise1"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".exercises.exe1.CreateExercise1Activity">
         </activity>
-        <activity android:name=".exercises.CreateExercise1Activity">
-        </activity>
-        <activity android:name=".ExercisePagerActivity"/>
+        <activity android:name=".exercises.exe1.ExercisePagerActivity"/>
     </application>
 
 </manifest>

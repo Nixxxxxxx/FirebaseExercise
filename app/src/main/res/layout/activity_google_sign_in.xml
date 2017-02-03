@@ -10,28 +10,41 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="german.teach.learn.zero.learnandteachgerman.GoogleSignInActivity">
+    tools:context="german.teach.learn.zero.learnandteachgerman.GoogleSignInActivity"
+    android:background="@drawable/germanimage"
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/status_textview"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:text="Hello World!"
+        android:layout_weight="0.27"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:textSize="36sp"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColorHighlight="@color/colorAccent"
+        android:textColorHint="#60b8b31c"
+        android:textColor="@android:color/holo_orange_light"/>
 
     <Button
         android:id="@+id/continue_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Continue"/>
+        android:text="Continue"
+        android:layout_gravity="center_vertical|center_horizontal"/>
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"/>
 
     <Button
         android:id="@+id/sign_out_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Sign Out"/>
+        android:text="Sign Out"
+        android:layout_gravity="center_vertical|center_horizontal"/>
+
 </LinearLayout>

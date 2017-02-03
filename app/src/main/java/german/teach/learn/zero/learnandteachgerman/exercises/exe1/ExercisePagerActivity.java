@@ -1,8 +1,9 @@
-package german.teach.learn.zero.learnandteachgerman;
+package german.teach.learn.zero.learnandteachgerman.exercises.exe1;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -12,8 +13,7 @@ import android.support.v4.view.ViewPager;
 import java.util.List;
 import java.util.UUID;
 
-import german.teach.learn.zero.learnandteachgerman.exercises.ExerciseLab;
-import german.teach.learn.zero.learnandteachgerman.models.Exercise1;
+import german.teach.learn.zero.learnandteachgerman.R;
 
 /**
  * Created by zero on 02.02.17.
@@ -22,6 +22,7 @@ import german.teach.learn.zero.learnandteachgerman.models.Exercise1;
 public class ExercisePagerActivity extends FragmentActivity {
     private ViewPager mViewPager;
     private List<Exercise1> mExercise1s;
+    private  int lastExercise;
 
     private static final String EXTRA_EXERCISE_ID =
             "com.zero.nully.exercise_id";
@@ -52,6 +53,7 @@ public class ExercisePagerActivity extends FragmentActivity {
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
+                lastExercise = position;
                 Exercise1 exercise1 = mExercise1s.get(position);
                 return ExerciseFragment.newInstance(exercise1.getId());
             }
@@ -67,6 +69,18 @@ public class ExercisePagerActivity extends FragmentActivity {
                 mViewPager.setCurrentItem(i);
                 break;
             }
+        }
+    }
+
+
+    public  void actTest(){
+        if(lastExercise < mExercise1s.size()){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mViewPager.setCurrentItem(lastExercise);
+                }
+            },1000);
         }
     }
 

@@ -1,6 +1,5 @@
 package german.teach.learn.zero.learnandteachgerman;
 
-
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -31,12 +30,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import german.teach.learn.zero.learnandteachgerman.models.User;
 
 public class GoogleSignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
-    SignInButton mSignInButton;
-    Button mSignOutButton;
-    Button mContinue;
+    private SignInButton mSignInButton;
+    private Button mSignOutButton;
+    private Button mContinue;
 
-    TextView mStatusTextView;
-    GoogleApiClient mGoogleApiClient;
+    private TextView mStatusTextView;
+    private GoogleApiClient mGoogleApiClient;
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -60,7 +59,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements GoogleApi
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this) //this.activity, this.onClick
+                .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         mStatusTextView = (TextView) findViewById(R.id.status_textview);
@@ -80,8 +79,6 @@ public class GoogleSignInActivity extends AppCompatActivity implements GoogleApi
     @Override
     public void onStart() {
         super.onStart();
-
-        // Check auth on Activity start
         if (mAuth.getCurrentUser() != null) {
             mStatusTextView.setText(mAuth.getCurrentUser().getEmail());
             mSignInButton.setVisibility(View.GONE);
@@ -91,11 +88,8 @@ public class GoogleSignInActivity extends AppCompatActivity implements GoogleApi
 
     private void onAuthSuccess(FirebaseUser user) {
         String username = usernameFromEmail(user.getEmail());
-
-        // Write new user
         writeNewUser(user.getUid(), username, user.getEmail());
 
-        // Go to MainActivity
         startActivity(new Intent(GoogleSignInActivity.this, ExerciseSelection.class));
         finish();
     }
@@ -161,7 +155,6 @@ public class GoogleSignInActivity extends AppCompatActivity implements GoogleApi
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             Log.d(TAG, "createUser:onComplete:" + task.isSuccessful());
-
                             if (task.isSuccessful()) {
                                 onAuthSuccess(task.getResult().getUser());
                             } else {

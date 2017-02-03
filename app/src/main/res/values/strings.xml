@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">LearnAndTeachGerman</string>
     <string name="title_activity_exercise1">Exercise1Activity</string>
+    <string-array name="articles_array">
+        <item>Der</item>
+        <item>Die</item>
+        <item>Das</item>
+  </string-array>
 </resources>

@@ -9,55 +9,68 @@
 
 
     <EditText
-        android:layout_width="274dp"
-        android:layout_height="wrap_content"
+        android:layout_width="235dp"
+        android:layout_height="46dp"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/idEditTitle"
+        android:id="@+id/word_edit_text"
         android:hint=" Wort einfugen"
         tools:paddingBottom="10dp"
-        android:layout_marginStart="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="48dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="16dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        />
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/image_button"
+        tools:textSize="24sp"/>
 
 
     <ImageButton
-        android:layout_width="352dp"
-        android:layout_height="141dp"
+        android:layout_width="313dp"
+        android:layout_height="283dp"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"
-        android:id="@+id/imageButton"
+        android:id="@+id/image_button"
         app:layout_anchorGravity="center_vertical|center_horizontal"
         tools:layout_constraintTop_toBottomOf="@id/scroll_message"
-        tools:layout_editor_absoluteX="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"/>
+        tools:layout_editor_absoluteY="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:scaleType="centerCrop"/>
 
     <Button
         android:text="Submit"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
-        android:id="@+id/idBtSubmit"
+        android:id="@+id/submit_button"
         tools:layout_constraintBottom_toBottomOf="@id/imageButton"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/idEditTitle"
-        android:layout_marginStart="32dp"
-        app:layout_constraintLeft_toRightOf="@+id/idEditMesage"
-        android:layout_marginLeft="32dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/word_edit_text"
+        app:layout_constraintHorizontal_bias="0.46"/>
 
-    <EditText
-        android:layout_width="210dp"
+    <Spinner
+        android:layout_width="107dp"
         android:layout_height="48dp"
-        android:id="@+id/idEditMesage"
-        app:layout_constraintLeft_toLeftOf="@+id/idEditTitle"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/idEditTitle"
-        android:hint="Artikel"/>
+        android:id="@+id/spinner_article"
+        app:layout_constraintRight_toLeftOf="@+id/word_edit_text"
+        app:layout_constraintBottom_toBottomOf="@+id/word_edit_text"
+        app:layout_constraintVertical_bias="0.96"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/image_button"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:gravity="right|center_vertical|start"
+        style="@style/Widget.AppCompat.Spinner.Underlined"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,41 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:weightSum="1">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="324dp"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"
+        android:id="@+id/word_view"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:cropToPadding="false"/>
 
     <TextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="crime_title_label"
-        />
+        android:textAlignment="center"
+        android:layout_weight="0.08"
+        android:textSize="24sp"
+        android:id="@+id/word_label"/>
 
-    <EditText
-        android:id="@+id/crime_title"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:hint="crime_title_hint"
-        />
+        android:layout_height="70dp"
+        android:layout_weight="0.05">
 
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="crime_details_label"
-        />
+        <Button
+            android:text="Der"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/der_button"
+            android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/crime_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_weight="1"
-        android:text="button crime"
-        />
+        <Button
+            android:text="Die"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/die_button"
+            android:layout_weight="1"/>
+
+        <Button
+            android:text="Das"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/das_button"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
 
 </LinearLayout>
