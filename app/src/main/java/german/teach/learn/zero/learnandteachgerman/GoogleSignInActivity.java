@@ -149,14 +149,17 @@ public class GoogleSignInActivity extends AppCompatActivity implements GoogleApi
             mStatusTextView.setText(acct.getEmail());
             String email = acct.getEmail();
             String name = acct.getDisplayName();
-
+//##################################
+            startActivity(new Intent(GoogleSignInActivity.this, ExerciseSelection.class));
+//#########################################
             mAuth.createUserWithEmailAndPassword(email, name)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             Log.d(TAG, "createUser:onComplete:" + task.isSuccessful());
                             if (task.isSuccessful()) {
-                                onAuthSuccess(task.getResult().getUser());
+                                //onAuthSuccess(task.getResult().getUser());
+
                             } else {
                                 Toast.makeText(GoogleSignInActivity.this, "User is already registered",
                                         Toast.LENGTH_SHORT).show();
