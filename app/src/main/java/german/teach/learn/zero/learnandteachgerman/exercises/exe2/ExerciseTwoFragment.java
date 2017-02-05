@@ -1,19 +1,15 @@
 package german.teach.learn.zero.learnandteachgerman.exercises.exe2;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,10 +19,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.UUID;
 
-import german.teach.learn.zero.learnandteachgerman.GoogleSignInActivity;
 import german.teach.learn.zero.learnandteachgerman.R;
 import german.teach.learn.zero.learnandteachgerman.exercises.exe1.Exercise1;
-import german.teach.learn.zero.learnandteachgerman.exercises.exe1.ExerciseOneFragment;
 import german.teach.learn.zero.learnandteachgerman.models.ExerciseLab;
 import german.teach.learn.zero.learnandteachgerman.models.ExercisePagerActivity;
 
@@ -38,6 +32,7 @@ public class ExerciseTwoFragment extends Fragment {
     private Exercise1 mExercise1;
     private TextView mTextView;
     private ImageView mImageView;
+    private  ImageView mTickView;
     private Activity mActivity;
 
     private Invoker mInvoker;
@@ -72,12 +67,15 @@ public class ExerciseTwoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_exercise2, container, false);
+        View v = inflater.inflate(R.layout.fragment_exercise2, container, false);
         mTextView = (TextView) v.findViewById(R.id.word_text_view_auf2);
         mTextView.setText("");
 
         mImageView = (ImageView) v.findViewById(R.id.image_view_auf2);
         Picasso.with(getActivity().getApplicationContext()).load(mExercise1.getImage()).into(mImageView);
+
+        mTickView = (ImageView) v.findViewById(R.id.tick_view);
+        mTickView.setVisibility(View.GONE);
 
         mGridView = (GridView) v.findViewById(R.id.gridview);
         mGridView.setAdapter(new MyCustomadapter(getContext(), mWord));
@@ -92,7 +90,13 @@ public class ExerciseTwoFragment extends Fragment {
 
                 if (mTextView.getText().length() == mWord.length()) {
                     if (mTextView.getText().equals(mWord)) {
-                        ((ExercisePagerActivity) mActivity).nextExercise();
+                        mTickView.setVisibility(View.VISIBLE);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((ExercisePagerActivity)mActivity).nextExercise();
+                            }
+                        },1000);
                     } else {
                         Toast.makeText(getContext(), "Just WRONG",
                                 Toast.LENGTH_SHORT).show();

@@ -3,6 +3,7 @@ package german.teach.learn.zero.learnandteachgerman.exercises.exe1;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public class ExerciseOneFragment extends Fragment implements View.OnClickListene
     private Button mDasButton;
     private String mArticle;
     private ImageView mImageView;
+    private ImageView mTickView;
 
     private Activity mActivity;
 
@@ -44,11 +46,12 @@ public class ExerciseOneFragment extends Fragment implements View.OnClickListene
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID crimeId = (UUID) getArguments().getSerializable(ARG_EXERCISE_ID_1);
-        mExercise1 = ExerciseLab.get(getActivity()).getExercise(crimeId);
+        UUID uuid = (UUID) getArguments().getSerializable(ARG_EXERCISE_ID_1);
+        mExercise1 = ExerciseLab.get(getActivity()).getExercise(uuid);
         mArticle = mExercise1.getArticle();
     }
 
@@ -69,6 +72,8 @@ public class ExerciseOneFragment extends Fragment implements View.OnClickListene
         mImageView = (ImageView) v.findViewById(R.id.word_view);
         Picasso.with(getActivity().getApplicationContext()).load(mExercise1.getImage()).into(mImageView);
 
+        mTickView = (ImageView) v.findViewById(R.id.tick_view);
+        mTickView.setVisibility(View.GONE);
         return v;
     }
 
@@ -83,8 +88,13 @@ public class ExerciseOneFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if (((Button) view.findViewById(view.getId())).getText().equals(mArticle)) {
-            Toast.makeText(getContext(), "Richtig ;)", Toast.LENGTH_SHORT).show();
-            ((ExercisePagerActivity)mActivity).nextExercise();
+            mTickView.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ((ExercisePagerActivity)mActivity).nextExercise();
+                }
+            },1000);
         } else {
             Toast.makeText(getContext(), "Falsch :(", Toast.LENGTH_SHORT).show();
         }

@@ -50,7 +50,6 @@ public class MyCustomadapter extends BaseAdapter {
         if (convertView == null) {
             textView = new TextView(mContext);
             textView.setLayoutParams(new GridView.LayoutParams(80, 100));
-            // textView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             textView.setPadding(3, 3, 3, 3);
             textView.setTextSize(25);
             textView.setTypeface(null, Typeface.BOLD);
@@ -77,7 +76,6 @@ public class MyCustomadapter extends BaseAdapter {
         Random rnd = new Random();
         for (int i = ar.length - 1; i > 0; i--) {
             int index = rnd.nextInt(i + 1);
-            // Simple swap
             Character a = ar[index];
             ar[index] = ar[i];
             ar[i] = a;

@@ -23,10 +23,16 @@ public class ExerciseSelection extends AppCompatActivity implements View.OnClick
     private Button createExercise_1_Bt;
     private Button exercise_1_Bt;
     private Button exercise_2_Bt;
-    List<Exercise1> mExercise;
-    List<String> mWords;
+    private List<Exercise1> mExercise;
+    private List<String> mWords;
     private DatabaseReference mDatabaseReference;
-    ValueEventListener mValueEventListener;
+    private ValueEventListener mValueEventListener;
+
+    public static final String TAG = "EXERCISESELECTION";
+    public static final String AUFGABEN = "AUFGABEN";
+    public static final String AUFGABE1 = "AUFGABE1";
+    public static final String AUFGABE2 = "AUFGABE2";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +69,7 @@ public class ExerciseSelection extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w("TAG", "getUser:onCancelled", databaseError.toException());
+                Log.w(TAG, "getUser:onCancelled", databaseError.toException());
             }
         };
 
@@ -90,14 +96,13 @@ public class ExerciseSelection extends AppCompatActivity implements View.OnClick
                 startActivity(new Intent(ExerciseSelection.this, CreateExercise1Activity.class));
                 break;
             case R.id.exercise_1_bt:
-                data.putSerializable("Aufgabe", "Aufgabe1");
+                data.putSerializable(AUFGABEN, AUFGABE1);
                 Intent intent = ExercisePagerActivity.newIntent(ExerciseSelection.this, mExercise.get(0).getId());
                 intent.putExtras(data);
                 startActivity(intent);
                 break;
             case  R.id.exercise_2_bt:
-                Log.d("HHHHH","WWWWWWWW");
-                data.putSerializable("Aufgabe", "Aufgabe2");
+                data.putSerializable(AUFGABEN, AUFGABE2);
                 Intent intent1 = ExercisePagerActivity.newIntent(ExerciseSelection.this, mExercise.get(0).getId());
                 intent1.putExtras(data);
                 startActivity(intent1);

@@ -47,6 +47,13 @@
             app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"
             android:id="@+id/image_view_auf2"/>
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/tick"
+            android:id="@+id/tick_view"
+            android:src="@drawable/tick"/>
+
         <GridView
             android:id="@+id/gridview"
             android:layout_width="match_parent"
